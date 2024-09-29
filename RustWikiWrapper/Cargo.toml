@@ -1,0 +1,16 @@
+[package]
+name = "rust_wiki_wrapper"
+version = "0.1.0"
+edition = "2021"
+authors = ["Teja Sunkara", "Avani Pathak", "Shree Varshini Lanka"]
+description = "A Rust crate that wraps the Wikipedia APIs like MediaWiki and Wikidata's REST and Action/Pageview APIs into a unified and easy-to-use interface. The crate will simplify interactions with Wikipedia, allowing developers to query articles, fetch structured data, perform searches, and retrieve analytics effortlessly."
+repository = "https://github.com/pathakavani/RustWikiWrapper"
+keywords = ["wikipedia", "mediawiki", "rest", "api", "rust"]
+homepage = "https://github.com/pathakavani/RustWikiWrapper"
+readme = "README.md"
+edition = "2021"
+
+[dependencies]
+reqwest = { version = "0.12.7", features = ["json"]}
+serde = {version = "1.0.210", features = ["derive"]}
+tokio = { version = "1.40.0", features = ["full"] }
