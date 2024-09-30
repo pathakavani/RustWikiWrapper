@@ -1,49 +1,5 @@
 # RustWikiWrapper
 A rust crate that wraps the Wikipedia APIs like MediaWiki, Wikidata, REST, and Pageview APIs into a unified and easy-to-use interface. The crate will simplify the interactions with Wikipedia, allowing developers to query articles, fetch structured data, perform searches, and retrieve analytics effortlessly.
-# Directory Structure
-.
-├── Cargo.lock                              # Auto-generated file tracking exact versions of dependencies
-├── Cargo.toml                              # Project dependencies and metadata
-├── examples                                # Directory for example scripts demonstrating library usage
-│   └── example.rs                          # Example code showing how to use the library
-├── project.tree                            # File capturing the directory structure output from the `tree` command
-└── src                                     # Main source code directory
-    ├── api                                 # API modules for handling different API endpoints
-    │   ├── action                          # Modules related to MediaWiki Action API
-    │   │   ├── create_account.rs            # Create account module
-    │   │   ├── create_edit_page.rs          # Create and edit page module
-    │   │   ├── get_current_user.rs          # Get current logged-in user information
-    │   │   ├── get_page_content.rs          # Get content of a specific page
-    │   │   ├── login.rs                     # Login module for authentication
-    │   │   ├── logout.rs                    # Logout module for ending sessions
-    │   │   ├── mod.rs                       # Module file for Action API
-    │   │   ├── send_email.rs                # Send email through Wikipedia API
-    │   │   └── upload_file.rs               # Upload file to Wikipedia
-    │   ├── mod.rs                          # Main API module file
-    │   └── rest                            # Modules related to MediaWiki REST API
-    │       ├── get_metadata.rs              # Get metadata of a page
-    │       ├── get_page_summary.rs          # Get summary of a page
-    │       ├── mod.rs                       # Module file for REST API
-    │       ├── related_pages.rs             # Get related pages
-    │       └── search.rs                    # Search for pages using the REST API
-    ├── lib.rs                              # Entry point for the library
-    └── models                              # Data models for JSON deserialization of API responses
-        ├── action                          # Models for Action API responses
-        │   ├── create_account.rs            # Model for account creation response
-        │   ├── email_status.rs              # Model for email status response
-        │   ├── login_response.rs            # Model for login response
-        │   ├── logout_response.rs           # Model for logout response
-        │   ├── mod.rs                       # Module file for Action models
-        │   ├── page_content.rs              # Model for page content response
-        │   ├── upload_response.rs           # Model for upload response
-        │   └── user_info.rs                 # Model for user information response
-        ├── mod.rs                          # Main models module file
-        └── rest                            # Models for REST API responses
-            ├── metadata.rs                  # Model for metadata response
-            ├── mod.rs                       # Module file for REST models
-            ├── page_summary.rs              # Model for page summary response
-            ├── related_pages.rs             # Model for related pages response
-            └── search_results.rs            # Model for search results response
 
 # How the Code Works
 
