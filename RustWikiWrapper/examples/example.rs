@@ -1,4 +1,3 @@
-use rust_wiki_wrapper::api::rest::get_page_summary;
 use rust_wiki_wrapper::api::MediaWikiClient;
 use serde_json;
 
