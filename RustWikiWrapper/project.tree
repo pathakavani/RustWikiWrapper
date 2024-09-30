@@ -1,0 +1,47 @@
+.
+├── Cargo.lock
+├── Cargo.toml
+├── examples
+│   └── example.rs
+├── project.tree
+└── src
+    ├── api
+    │   ├── action
+    │   │   ├── create_account.rs
+    │   │   ├── create_edit_page.rs
+    │   │   ├── get_current_user.rs
+    │   │   ├── get_page_content.rs
+    │   │   ├── login.rs
+    │   │   ├── logout.rs
+    │   │   ├── mod.rs
+    │   │   ├── send_email.rs
+    │   │   └── upload_file.rs
+    │   ├── mod.rs
+    │   └── rest
+    │       ├── featured_images.rs
+    │       ├── get_metadata.rs
+    │       ├── get_page_summary.rs
+    │       ├── mod.rs
+    │       ├── related_pages.rs
+    │       └── search.rs
+    ├── lib.rs
+    └── models
+        ├── action
+        │   ├── create_account.rs
+        │   ├── email_status.rs
+        │   ├── login_response.rs
+        │   ├── logout_response.rs
+        │   ├── mod.rs
+        │   ├── page_content.rs
+        │   ├── upload_response.rs
+        │   └── user_info.rs
+        ├── mod.rs
+        └── rest
+            ├── featured_images.rs
+            ├── metadata.rs
+            ├── mod.rs
+            ├── page_summary.rs
+            ├── related_pages.rs
+            └── search_results.rs
+
+9 directories, 36 files
