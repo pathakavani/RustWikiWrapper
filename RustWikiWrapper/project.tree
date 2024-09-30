@@ -18,7 +18,6 @@
     │   │   └── upload_file.rs
     │   ├── mod.rs
     │   └── rest
-    │       ├── featured_images.rs
     │       ├── get_metadata.rs
     │       ├── get_page_summary.rs
     │       ├── mod.rs
@@ -37,7 +36,6 @@
         │   └── user_info.rs
         ├── mod.rs
         └── rest
-            ├── featured_images.rs
             ├── metadata.rs
             ├── mod.rs
             ├── page_summary.rs
