@@ -7,8 +7,7 @@ impl MediaWikiClient {
         &self,
         _username: &str,
         _password: &str,
-        _email: Option<&str>,
-    ) -> Result<CreateAccountResponse, Box<dyn Error>> {
+        _email: Option<&str>,) -> Result<CreateAccountResponse, Box<dyn Error>> {
         unimplemented!()
     }
 }
