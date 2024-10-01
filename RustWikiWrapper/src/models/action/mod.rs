@@ -7,3 +7,4 @@ pub mod email_status;
 pub mod create_edit_page;
 pub mod upload_response;
 pub mod user_info;
+pub mod page_content;
