@@ -1,2 +1,2 @@
-RustWikiWrapper/target
+target/
 Cargo.lock
