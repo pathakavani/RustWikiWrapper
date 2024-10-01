@@ -17,4 +17,7 @@ async fn main() {
             println!("Failed to fetch the page summary: {}", e);
         }
     }
+
+    // Main function would test all the api's similar to the example
+    // demonstrated above.
 }
