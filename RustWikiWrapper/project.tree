@@ -21,7 +21,6 @@
     │       ├── get_metadata.rs
     │       ├── get_page_summary.rs
     │       ├── mod.rs
-    │       ├── related_pages.rs
     │       └── search.rs
     ├── lib.rs
     └── models
@@ -39,7 +38,4 @@
             ├── metadata.rs
             ├── mod.rs
             ├── page_summary.rs
-            ├── related_pages.rs
             └── search_results.rs
-
-9 directories, 36 files
