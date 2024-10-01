@@ -32,6 +32,7 @@
         │   ├── login_response.rs
         │   ├── logout_response.rs
         │   ├── mod.rs
+        │   ├── page_content.rs
         │   ├── upload_response.rs
         │   └── user_info.rs
         ├── mod.rs
@@ -42,4 +43,4 @@
             ├── pages.rs
             └── search_results.rs
 
-9 directories, 34 files
+9 directories, 35 files
