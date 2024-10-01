@@ -11,5 +11,6 @@ impl MediaWikiClient {
         _token: &str,
     ) -> Result<CreateEditPageResponse, Box<dyn Error>> {
         unimplemented!()
+        // A placeholder for create and edit a Wiki page action API
     }
 }
