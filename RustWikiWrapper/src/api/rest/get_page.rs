@@ -1,12 +1,9 @@
-use reqwest::Client;
-use std::error::Error;
+use crate::api::MediaWikiClient;
 use crate::models::rest::pages::Page;
+use std::error::Error;
 
-// Function to get page information using the MediaWiki REST API
-pub async fn get_page_info(
-    _client: &Client,
-    _title: &str,
-) -> Result<Page, Box<dyn Error>> {
-    
-    unimplemented!()
+impl MediaWikiClient {
+    pub async fn get_page_info(&self, title: &str) -> Result<Page, Box<dyn Error>> {
+        unimplemented!()
+    }
 }
