@@ -30,12 +30,14 @@ tokio = { version = "1", features = ["full"] }
 # Dependency Breakdown
 
 1.	reqwest:
-•	A popular HTTP client library in Rust that supports asynchronous requests. It’s used to make HTTP requests to the Wikipedia APIs.
-•	The json feature is enabled to seamlessly handle JSON data.
+A popular HTTP client library in Rust that supports asynchronous requests. It’s used to make HTTP requests to the Wikipedia APIs.
+The json feature is enabled to seamlessly handle JSON data.
+
 2.	serde:
-•	A framework for serializing and deserializing Rust data structures. The derive feature is used to automatically implement Deserialize and Serialize traits for our models.
+A framework for serializing and deserializing Rust data structures. The derive feature is used to automatically implement Deserialize and Serialize traits for our models.
+
 3.	tokio:
-•	An asynchronous runtime that powers the async/await syntax in Rust. It is necessary for running async operations like HTTP requests.
+An asynchronous runtime that powers the async/await syntax in Rust. It is necessary for running async operations like HTTP requests.
 
 # Running the Code
 
@@ -63,7 +65,7 @@ cargo test
 If you want to use this library in your own project, add the following to your Cargo.toml:
 
 [dependencies]
-rust_wiki_wrapper = { path = "../RustWikiWrapper" }  # Adjust the path to point to your local project
+rust_wiki_wrapper = { path = "../RustWikiWrapper" }# Adjust the path to point to your local project
 
 Then, in your Rust code, you can use the library as follows:
 
