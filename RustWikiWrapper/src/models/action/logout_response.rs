@@ -1,0 +1,1 @@
+// No response structure required for logout API

@@ -13,4 +13,5 @@ pub struct UploadResult {
     pub filename: Option<String>, // The filename of the uploaded file (if successful)
     pub warnings: Option<HashMap<String, String>>, // Warnings (if any)
     pub error: Option<HashMap<String, String>>,    // Errors (if any)
+    // A placeholder for upload result structure
 }

@@ -10,4 +10,5 @@ pub struct EmailUserResponse {
 pub struct EmailUserResult {
     pub result: String,    // The result of the email attempt (e.g., "Success", "Failure")
     pub error: Option<String>, // Error message if any
+    // A placeholder for email result structure
 }

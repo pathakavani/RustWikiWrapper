@@ -12,4 +12,5 @@ pub async fn send_email(
     _cc_me: bool,) -> Result<EmailUserResponse, Box<dyn Error>> {
    
     unimplemented!()
+    // Placeholder for send email action API
 }

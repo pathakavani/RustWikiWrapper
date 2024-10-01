@@ -15,4 +15,5 @@ pub struct EditResult {
     pub old_revid: Option<u64>,
     pub new_revid: Option<u64>,
     pub nochange: Option<bool>,
+    // A placeholder for edit result structure
 }

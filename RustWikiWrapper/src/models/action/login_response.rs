@@ -12,4 +12,5 @@ pub struct LoginResult {
     pub lgusername: Option<String>, // Username (only present on success)
     pub reason: Option<String>, // Reason for failure (only present on failure)
     pub token: Option<String>, // A new token may be provided for some cases
+    // A placeholder for login result structure
 }
