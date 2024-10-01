@@ -19,6 +19,7 @@
     │   ├── mod.rs
     │   └── rest
     │       ├── get_metadata.rs
+    │       ├── get_page.rs
     │       ├── get_page_summary.rs
     │       ├── mod.rs
     │       └── search.rs
@@ -38,4 +39,7 @@
             ├── metadata.rs
             ├── mod.rs
             ├── page_summary.rs
+            ├── pages.rs
             └── search_results.rs
+
+9 directories, 34 files
