@@ -1,11 +1,13 @@
-// Model for Create Account Response
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Deserialize)]
 pub struct CreateAccountResponse {
-    pub status: String,
-    pub username: Option<String>,
-    pub user_id: Option<u64>,
-    pub message: Option<String>,
-    // A placeholder for account creation structure
+    pub createaccount: CreateAccountResult,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct CreateAccountResult {
+    pub result: String,  // e.g., "Success", "Failure"
+    pub username: Option<String>,  // Username of the created account (on success)
+    pub reason: Option<String>,  // Reason for failure (if any)
 }
