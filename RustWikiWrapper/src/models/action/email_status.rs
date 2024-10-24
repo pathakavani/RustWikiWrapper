@@ -1,4 +1,4 @@
-use serde::{Deserialize};
+use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
 pub struct EmailUserResponse {
@@ -8,7 +8,7 @@ pub struct EmailUserResponse {
 // Struct for the email result
 #[derive(Debug, Deserialize)]
 pub struct EmailUserResult {
-    pub result: String,    // The result of the email attempt (e.g., "Success", "Failure")
+    pub result: String, // The result of the email attempt (e.g., "Success", "Failure")
     pub error: Option<String>, // Error message if any
-    // A placeholder for email result structure
+                        // A placeholder for email result structure
 }
