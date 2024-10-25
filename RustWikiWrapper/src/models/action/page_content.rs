@@ -1,20 +1,25 @@
-// Model for Page Content Response
+// Model for page content response
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct PageContentResponse {
-    pub query: QueryResult,
+pub struct PageContent {
+    pub pageid: i64,
+    pub ns: i32,
+    pub title: String,
+    pub content: String,
+    #[serde(rename = "contentmodel")]
+    pub content_model: String,
+    #[serde(rename = "pagelanguage")]
+    pub page_language: String,
+    pub revid: Option<i64>,
+    #[serde(rename = "parentid")]
+    pub parent_id: Option<i64>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct QueryResult {
-    pub pages: Vec<Page>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Page {
-    pub pageid: Option<u64>,
-    pub title: Option<String>,
-    pub content: Option<String>,
-    // Placeholder for Page content response structure
+pub struct ErrorResponse {
+    pub code: String,
+    pub info: String,
+    #[serde(rename = "*")]
+    pub details: Option<String>,
 }
