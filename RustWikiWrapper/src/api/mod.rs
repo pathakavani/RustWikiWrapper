@@ -1,48 +1,80 @@
-// src/api/mod.rs
+pub mod action;  // Add this line to make the action module public
+pub mod rest;    // Add this line if you're using REST APIs
 
-use reqwest::{Client, Url};
-use std::error::Error;
-use std::collections::HashMap;
 
-pub mod rest;
-pub mod action;
 
-// Common struct that can be used by all the API's
+use reqwest::Client;
+use reqwest::header::{HeaderMap, HeaderValue, CONTENT_TYPE};
+use serde::Serialize;
+
+
 pub struct MediaWikiClient {
-    client: Client,
-    base_url: String,
+    pub client: Client,
+    pub base_url: String,
 }
 
 impl MediaWikiClient {
-    // Constructor for MediaWikiClient
     pub fn new(base_url: &str) -> Self {
+        let client = Client::builder()
+            .user_agent("Mozilla/5.0 (compatible; RustWikiBot/1.0)")
+            .cookie_store(true)
+            .build()
+            .unwrap_or_else(|_| Client::new());
+
         MediaWikiClient {
-            client: Client::new(),
+            client,
             base_url: base_url.to_string(),
         }
     }
 
-    // Implement a GET method that sends a request to the provided URL
-    pub async fn get(&self, endpoint: &str, params: &[(&str, &str)]) -> Result<reqwest::Response, Box<dyn Error>> {
-        let url = Url::parse_with_params(
-            &format!("{}/{}", self.base_url, endpoint),
-            params,
-        )?;
+    pub async fn get(
+        &self,
+        endpoint: &str,
+        params: &[(&str, &str)],
+    ) -> reqwest::Result<reqwest::Response> {
+        let url = format!("{}/{}", self.base_url, endpoint);
+        
+        // Print request details
+        println!("\nGET Request:");
+        println!("URL: {}", url);
+        println!("Parameters:");
+        for (key, value) in params {
+            println!("{}: {}", key, value);
+        }
 
-        let response = self.client.get(url).send().await?;
-        Ok(response)
+        self.client
+            .get(&url)
+            .query(params)
+            .send()
+            .await
     }
 
-    // Implement a POST method that sends a POST request to the provided URL with form parameters
-    pub async fn post(&self, endpoint: &str, params: &HashMap<&str, &str>) -> Result<reqwest::Response, Box<dyn Error>> {
+    pub async fn post<T: Serialize + ?Sized>(
+        &self,
+        endpoint: &str,
+        form: &T,
+    ) -> reqwest::Result<reqwest::Response> {
         let url = format!("{}/{}", self.base_url, endpoint);
+        
+        let mut headers = HeaderMap::new();
+        headers.insert(
+            CONTENT_TYPE,
+            HeaderValue::from_static("application/x-www-form-urlencoded"),
+        );
 
-        let response = self.client
+        // Print request details
+        println!("\nPOST Request:");
+        println!("URL: {}", url);
+        println!("Headers:");
+        for (key, value) in headers.iter() {
+            println!("{}: {}", key, value.to_str().unwrap_or(""));
+        }
+
+        self.client
             .post(&url)
-            .form(params)  // Sending form data
+            .headers(headers)
+            .form(form)
             .send()
-            .await?;
-
-        Ok(response)
+            .await
     }
 }
