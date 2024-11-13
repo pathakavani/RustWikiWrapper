@@ -9,7 +9,7 @@ pub async fn login(
     username: &str,
     password: &str,
 ) -> Result<LoginResponse, Box<dyn Error>> {
-    // Step 1: Get login token
+    //get login token
     let token_response = client.get(
         "w/api.php",
         &[
@@ -25,7 +25,7 @@ pub async fn login(
         .as_str()
         .ok_or("Failed to obtain login token")?;
 
-    // Step 2: Prepare login parameters
+    // prepare login parameters
     let mut login_params = HashMap::new();
     login_params.insert("action", "clientlogin");
     login_params.insert("username", username);
@@ -34,7 +34,7 @@ pub async fn login(
     login_params.insert("loginreturnurl", "http://localhost:3000");
     login_params.insert("format", "json");
 
-    // Step 3: Send login request
+    // send login request
     let login_response = client.post("w/api.php?format=json", &login_params).await?;
     let response_text = login_response.text().await?;
     let login_result: LoginResponse = serde_json::from_str(&response_text)?;

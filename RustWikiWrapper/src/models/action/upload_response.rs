@@ -1,17 +1,58 @@
 use serde::Deserialize;
-use std::collections::HashMap;
 
 #[derive(Debug, Deserialize)]
 pub struct UploadResponse {
     pub upload: UploadResult,
 }
 
-// Struct for the upload result
 #[derive(Debug, Deserialize)]
 pub struct UploadResult {
-    pub result: String, // The result of the upload attempt (e.g., "Success", "Warning", "Failure")
-    pub filename: Option<String>, // The filename of the uploaded file (if successful)
-    pub warnings: Option<HashMap<String, String>>, // Warnings (if any)
-    pub error: Option<HashMap<String, String>>, // Errors (if any)
-                        // A placeholder for upload result structure
+    pub result: String,
+    pub filename: String,
+    pub imageinfo: ImageInfo,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct ImageInfo {
+    pub timestamp: String,
+    pub user: String,
+    pub userid: u64,
+    pub size: u64,
+    pub width: u32,
+    pub height: u32,
+    pub parsedcomment: String,
+    pub comment: String,
+    pub html: String,
+    pub canonicaltitle: String,
+    pub url: String,
+    pub descriptionurl: String,
+    pub sha1: String,
+    pub metadata: Vec<Metadata>,
+    pub commonmetadata: Vec<String>,
+    pub extmetadata: ExtMetadata,
+    pub mime: String,
+    pub mediatype: String,
+    pub bitdepth: u8,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Metadata {
+    pub name: String,
+    pub value: i32,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct ExtMetadata {
+    pub date_time: MetadataItem,
+    pub object_name: MetadataItem,
+    pub commons_metadata_extension: MetadataItem,
+    pub categories: MetadataItem,
+    pub assessments: MetadataItem,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct MetadataItem {
+    pub value: String,
+    pub source: String,
+    pub hidden: Option<String>,
 }

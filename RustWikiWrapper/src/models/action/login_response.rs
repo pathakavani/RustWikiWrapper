@@ -12,7 +12,7 @@ pub struct ClientLoginResult {
     pub username: Option<String>,
 }
 
-// Add TokenResponse structure
+
 #[derive(Debug, Deserialize)]
 pub struct TokenResponse {
     pub batchcomplete: String,
@@ -29,7 +29,6 @@ pub struct Tokens {
     pub logintoken: String,
 }
 
-// Add error response structure if needed
 #[derive(Debug, Deserialize)]
 pub struct ErrorResponse {
     pub error: ErrorInfo,

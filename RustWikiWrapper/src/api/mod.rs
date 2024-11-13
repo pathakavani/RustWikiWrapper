@@ -1,6 +1,5 @@
-pub mod action;  // Add this line to make the action module public
-pub mod rest;    // Add this line if you're using REST APIs
-
+pub mod action;  
+pub mod rest;    
 
 
 use reqwest::Client;
@@ -77,4 +76,5 @@ impl MediaWikiClient {
             .send()
             .await
     }
+
 }
