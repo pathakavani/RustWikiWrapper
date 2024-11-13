@@ -1,38 +1,43 @@
 use crate::api::MediaWikiClient;
-use std::error::Error;
-use std::collections::HashMap;
 use crate::models::action::email_status::EmailUserResponse;
+use std::collections::HashMap;
+use std::error::Error;
 
-pub async fn send_email(
-    client: &MediaWikiClient,
-    target_user: &str,
-    subject: &str,
-    message: &str,
-    cc_me: bool,
-) -> Result<EmailUserResponse, Box<dyn Error>> {
+impl MediaWikiClient {
+    pub async fn send_email(
+        &self,
+        target_user: &str,
+        subject: &str,
+        message: &str,
+        cc_me: bool,
+    ) -> Result<EmailUserResponse, Box<dyn Error>> {
+        // get CSRF token
+        let token_response = self
+            .get(
+                "w/api.php",
+                &[("action", "query"), ("meta", "tokens"), ("format", "json")],
+            )
+            .await?;
 
-    // Step 1: Obtain the email token (equal to edit token)
-    let token_response = client.get(
-        "w/api.php",
-        &[("action", "query"), ("meta", "tokens"), ("format", "json")]
-    ).await?.json::<serde_json::Value>().await?;
-    
-    let email_token = token_response["query"]["tokens"]["csrftoken"]
-        .as_str()
-        .ok_or("Failed to obtain email token")?;
+        let token_data: serde_json::Value = token_response.json().await?;
+        let email_token = token_data["query"]["tokens"]["csrftoken"]
+            .as_str()
+            .ok_or("Failed to obtain email token")?;
 
-    // Step 2: Prepare the parameters for sending the email
-    let mut params = HashMap::new();
-    params.insert("action", "emailuser");
-    params.insert("target", target_user);
-    params.insert("subject", subject);
-    params.insert("text", message);
-    params.insert("token", email_token); // Token obtained in the previous request
-    params.insert("ccme", if cc_me { "true" } else { "false" });
-    params.insert("format", "json");
+        // prepare parameters
+        let mut params = HashMap::new();
+        params.insert("action", "emailuser");
+        params.insert("target", target_user);
+        params.insert("subject", subject);
+        params.insert("text", message);
+        params.insert("token", email_token);
+        params.insert("ccme", if cc_me { "1" } else { "0" });
+        params.insert("format", "json");
 
-    // Step 3: Send the email request using the post method
-    let email_response = client.post("w/api.php", &params).await?.json::<EmailUserResponse>().await?;
+        // send the email request
+        let response = self.post("w/api.php", &params).await?;
+        let email_response: EmailUserResponse = response.json().await?;
 
-    Ok(email_response)
+        Ok(email_response)
+    }
 }

@@ -2,7 +2,11 @@
 ├── Cargo.lock
 ├── Cargo.toml
 ├── examples
-│   └── example.rs
+│   ├── get_current_userinfo_eg.rs
+│   ├── get_page_content_eg.rs
+│   ├── get_page_summary_eg.rs
+│   ├── login_example.rs
+│   ├── logout_example.rs
 ├── project.tree
 └── src
     ├── api
@@ -19,10 +23,9 @@
     │   ├── mod.rs
     │   └── rest
     │       ├── get_metadata.rs
-    │       ├── get_page.rs
     │       ├── get_page_summary.rs
     │       ├── mod.rs
-    │       └── search.rs
+    │       └── search_result.rs
     ├── lib.rs
     └── models
         ├── action
@@ -42,5 +45,3 @@
             ├── page_summary.rs
             ├── pages.rs
             └── search_results.rs
-
-9 directories, 35 files
