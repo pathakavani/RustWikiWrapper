@@ -6,24 +6,27 @@ use std::error::Error;
 async fn test_login(client: &MediaWikiClient) -> Result<(), Box<dyn Error>> {
     println!("=== Testing Wikipedia Login ===");
     
-    // get credentials from environment variables
+    // Get credentials from environment variables
     let username = env::var("WIKI_USERNAME").expect("WIKI_USERNAME not set");
     let password = env::var("WIKI_PASSWORD").expect("WIKI_PASSWORD not set");
-    let return_url = "https://en.wikipedia.org";
     
     println!("Attempting to login with username: {}", username);
     
-    // Using the login function from your module
-    match login(client, &username, &password, return_url).await {
+    // Using the login function with correct number of parameters
+    match login(client, &username, &password).await {
         Ok(response) => {
             println!("\nLogin Response:");
             println!("Status: {}", response.clientlogin.status);
             
-            if let Some(username) = &response.clientlogin.username {
-                println!("Username: {}", username);
+            // Handle username if present
+            if let Some(username) = response.clientlogin.username {
+                println!("Successfully logged in as: {}", username);
             }
-            if let Some(message) = &response.clientlogin.message {
-                println!("Message: {}", message);
+
+            // Check login status
+            match response.clientlogin.status.as_str() {
+                "PASS" => println!("✅ Login successful!"),
+                status => println!("❌ Login failed with status: {}", status),
             }
         }
         Err(e) => {
@@ -36,8 +39,14 @@ async fn test_login(client: &MediaWikiClient) -> Result<(), Box<dyn Error>> {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
+    // Load environment variables from .env file
     dotenv::dotenv().ok();
-    let client = MediaWikiClient::new("https://en.wikipedia.org");
+    
+    // Create client
+    let client = MediaWikiClient::new("https://test.wikipedia.org");
+    
+    // Test login
     test_login(&client).await?;
+    
     Ok(())
 }
