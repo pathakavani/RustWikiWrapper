@@ -1,13 +1,18 @@
 .
 ├── Cargo.lock
 ├── Cargo.toml
+├── Dockerfile
 ├── examples
+│   ├── edit_page_eg.rs
+│   ├── email_a_user_eg.rs
 │   ├── get_current_userinfo_eg.rs
 │   ├── get_page_content_eg.rs
 │   ├── get_page_summary_eg.rs
 │   ├── login_example.rs
 │   ├── logout_example.rs
+│   └── search_eg.rs
 ├── project.tree
+├── run_examples.sh
 └── src
     ├── api
     │   ├── action
@@ -25,7 +30,7 @@
     │       ├── get_metadata.rs
     │       ├── get_page_summary.rs
     │       ├── mod.rs
-    │       └── search_result.rs
+    │       └── search.rs
     ├── lib.rs
     └── models
         ├── action
