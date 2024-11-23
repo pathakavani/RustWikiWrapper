@@ -1,5 +1,5 @@
 # RustWikiWrapper
-A rust crate that wraps the Wikipedia APIs like MediaWiki, Wikidata, REST, and Pageview APIs into a unified and easy-to-use interface. The crate will simplify the interactions with Wikipedia, allowing developers to query articles, fetch structured data, perform searches, and retrieve analytics effortlessly.
+A rust crate that wraps the Wikipedia APIs like MediaWiki; REST, and Pageview APIs into a unified and easy-to-use interface. The crate will simplify the interactions with Wikipedia, allowing developers to query articles, fetch structured data, and perform searches effortlessly.
 
 ## How the Code Works
 
@@ -20,41 +20,63 @@ The returned JSON is parsed into structs defined in the models module.
 This separation of API and data models makes the codebase clean, maintainable, and easy to extend.
 
 
-## Dependencies in Cargo.toml
-
-1. reqwest = { version = "0.11", features = ["json"] }
-A popular HTTP client library in Rust that supports asynchronous requests. It’s used to make HTTP requests to the Wikipedia APIs.
-The json feature is enabled to seamlessly handle JSON data.
-
-2. serde = { version = "1.0", features = ["derive"] }
-A framework for serializing and deserializing Rust data structures. The derive feature is used to automatically implement Deserialize and Serialize traits for our models.
-
-3. tokio = { version = "1", features = ["full"] }
-An asynchronous runtime that powers the async/await syntax in Rust. It is necessary for running async operations like HTTP requests.
-
-## Running the Code
+## Running the Code in a Docker Container
 
 ### Prerequisites
 
-Make sure you have Rust installed.
+Make sure you have Rust and Docker installed.
 
-If not, you can install it by following the instructions at the [Rust official website](https://www.rust-lang.org/tools/install).
-
-### Build the Project
-
-To build the project, navigate to the root directory of the project and run:
-
-```cargo build```
-
-### Run the Examples
-
-To run an example from the examples directory, use the following command:
-
-```cargo run --example example_name```
+If not, you can install it by following the instructions at the [Rust official website](https://www.rust-lang.org/tools/install) and [Docker](https://docs.docker.com/engine/install/)
 
 
-## Use the RustWikiWrapper Crate
-Check out the example code [here](RustWikiWrapper/examples/example.rs) to run a particular API by using the crate.
+### Build the Docker Image
+
+To build the Docker image for this project, run the following command in the project root directory (where the `Dockerfile` is located). We will be using the Dockerfile which have the Rust container setup, setting up the directory in the container, copying the local rust code in the container, building, and executing the examples.
+NOTE: Every time we make a change, we will have to build the container, so that all the changes are copied into the container directory.
+
+```
+docker build -t rust-wiki-wrapper .
+```
+
+### Run the Docker Container
+
+To run the project and execute all example scripts sequentially with a delay, use the following command to run the above built container:
+```bash
+docker run --rm rust-wiki-wrapper
+```
+
+This will run the run_examples.sh script, which will execute each example one by one, with a 3-second delay between each, and print the descriptions and results of each example to the terminal.
+
+### 3. Customizing the Example Execution
+We have created a run_example.sh file to to execute all the examples which utilize the RustWikiWrapper crate. We can modify this script to change the order of execution, add delays within examples etc.
+
+```bash
+#!/bin/bash
+
+# Function to run an example with a description and a delay
+run_example() {
+    echo "Running example: $1"
+    echo "Description: $2"
+    echo "----------------------------------------"
+    cargo run --example $1
+    echo "----------------------------------------"
+    echo "Example $1 completed."
+    echo "----------------------------------------"
+    sleep 3  # Delay between examples (3 seconds)
+}
+
+# Run each example sequentially with a description
+run_example "login_example" "This example demonstrates how to log in a user to the Wikipedia API."
+run_example "edit_page_eg" "This example shows how to edit a page on Wikipedia."
+run_example "email_a_user_eg" "This example demonstrates how to email a user via the Wikipedia API."
+run_example "get_current_userinfo_eg" "This example retrieves the current user's information."
+run_example "get_page_content_eg" "This example fetches the content of a Wikipedia page."
+run_example "get_page_summary_eg" "This example retrieves the summary of a Wikipedia page."
+run_example "logout_example" "This example logs out a user from the Wikipedia API."
+run_example "search_eg" "This example demonstrates how to search for a Wikipedia article."
+
+echo "All examples have been executed."
+```
 
 ## Project Directory Structure
 We have created the directory structure using the 'tree' command as follows:
