@@ -15,7 +15,7 @@ async fn test_login(client: &MediaWikiClient) -> Result<(), Box<dyn Error>> {
     // Using the login function with correct number of parameters
     match login(client, &username, &password).await {
         Ok(response) => {
-            println!("\nLogin Response:");
+            println!("\nLogin Response: {:?}", response );
             println!("Status: {}", response.clientlogin.status);
             
             // Handle username if present

@@ -18,8 +18,14 @@ serde = { version = "1.0", features = ["derive"] }
 http = "0.2"
 
 [[bin]]
-name = "fuzz_target_1"
-path = "fuzz_targets/fuzz_target_1.rs"
+name = "fuzz_login"
+path = "fuzz_targets/fuzz_login.rs"
 test = false
 doc = false
 bench = false
+
+[[bin]]
+name = "fuzz_send_email"
+path = "fuzz_targets/fuzz_send_email.rs"
+test = false
+doc = false
