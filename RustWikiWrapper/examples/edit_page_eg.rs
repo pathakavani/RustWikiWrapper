@@ -56,8 +56,8 @@ async fn login_and_edit_page(
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    let page_title = "Testpage3";
-    let page_content = r#"= Welcome to Testpage1 =
+    let page_title = "Testpage4";
+    let page_content = r#"= Welcome to Testpage4 =
 This is a demonstration page created using the RustWikiWrapper API.
 
 == Introduction ==
@@ -89,7 +89,7 @@ This page was automatically created to test the Wikipedia API integration.
     let should_watch = true;
 
     match login_and_edit_page(page_title, page_content, should_watch).await {
-        Ok(_) => println!("Page 'Testpage3' has been created successfully"),
+        Ok(_) => println!("Page 'Testpage4' has been created successfully"),
         Err(e) => println!("Error creating page: {}", e),
     }
 
