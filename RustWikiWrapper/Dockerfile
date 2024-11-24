@@ -19,5 +19,11 @@ RUN chmod +x /usr/local/bin/run_examples.sh
 # Build the project in debug mode
 RUN cargo build
 
+# Generate documentation (no dependencies in the documentation!)
+RUN cargo doc --no-deps
+
 # Execute the shell script that runs all examples
-CMD ["/usr/local/bin/run_examples.sh"]
+# CMD ["/usr/local/bin/run_examples.sh"]
+
+# Start the HTTP server in the background and run the shell (keeping the container running)
+CMD /bin/bash
