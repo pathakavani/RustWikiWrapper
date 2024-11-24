@@ -61,7 +61,7 @@ docker run --rm rust-wiki-wrapper
 
 This will run the run_examples.sh script, which will execute each example one by one, with a 3-second delay between each, and print the descriptions and results of each example to the terminal.
 
-### Run the docker container interactively and mount the cargo doc!
+## Run the docker container interactively and mount the cargo doc!
 We can run the docker container in interactive mode so that we are able to run our rust program using the commands we want.
 
 Once the code changes are completed, build the image using the above mentioned command, and run the following:
