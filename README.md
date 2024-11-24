@@ -71,9 +71,7 @@ docker run -it --rm -v $(pwd)/target/doc:/usr/src/rustwikwrapper/target/doc rust
 ```
 #### Here, we are mounting the local host volume in the container, so that we can create cargo doc from within the container, and access it in the target/doc/rust_wiki_wrapper/index.html easily.
 
-This will open a command line bash interface, after which you can test out all the functionality within the container, exactly as we did locally.
-
-To access the cargo docs, access this link: http://localhost:8080
+This will open a command line bash interface, after which you can test out all the functionality within the container, exactly as we did locally, as below:
 
 ```bash
 cargo build    # build the project
