@@ -77,9 +77,14 @@ To access the cargo docs, access this link: http://localhost:8080
 
 ```bash
 cargo build    # build the project
+
 cargo run --example login_example # test all the examples from the examples directory
+
 cargo doc --open # this will create docs in target/doc/rust_wiki_wrapper/index.html directory, and easily accessible.
 
+cargo +nightly fuzz run fuzz_login # Command for fuzzing
+
+cargo test --test {name_of_test_in_the_test_directory}
 # or any other commands to test.
 ```
 

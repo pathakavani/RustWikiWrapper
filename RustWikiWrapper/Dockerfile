@@ -16,7 +16,22 @@ COPY run_examples.sh /usr/local/bin/run_examples.sh
 # Make the shell script executable
 RUN chmod +x /usr/local/bin/run_examples.sh
 
-# Build the project in debug mode
+# Install dependencies for cargo-fuzz and fuzzing
+RUN apt-get update && apt-get install -y \
+    clang \
+    libclang-dev \
+    llvm-dev \
+    libtool \
+    pkg-config \
+    make \
+    g++
+
+RUN rustup install nightly
+
+# Install cargo-fuzz for fuzz testing
+RUN cargo install cargo-fuzz
+
+# Build the project (including fuzzing targets)
 RUN cargo build
 
 # Generate documentation (no dependencies in the documentation!)
