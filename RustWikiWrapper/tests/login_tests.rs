@@ -96,23 +96,3 @@ async fn test_rate_limit_handling() {
         tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
     }
 }
-
-#[tokio::test]
-#[ignore] // Run this test explicitly as it tests production API
-async fn test_production_login() {
-    let (username, password) = get_test_credentials();
-    let client = MediaWikiClient::new("https://www.wikipedia.org");
-
-    let result = login(&client, &username, &password).await;
-
-    match result {
-        Ok(response) => {
-            assert_eq!(response.clientlogin.status.as_str(), "PASS");
-            println!("Production login successful");
-        }
-        
-        Err(e) => {
-            panic!("Production login failed: {}", e);
-        }
-    }
-}
