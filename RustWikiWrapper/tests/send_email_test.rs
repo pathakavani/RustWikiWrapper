@@ -1,7 +1,6 @@
-use rust_wiki_wrapper::{
-    api::MediaWikiClient,
-    api::action::login::login,
-};
+use rust_wiki_wrapper::
+    api::MediaWikiClient
+;
 
 use std::env;
 use tokio;
@@ -32,7 +31,7 @@ async fn get_authenticated_client() -> Result<MediaWikiClient, String> {
     
     let client = MediaWikiClient::new("https://test.wikipedia.org");
     
-    match login(&client,&username, &password).await {
+    match client.login(&username, &password).await {
         Ok(_) => Ok(client),
         Err(e) => {
             println!("Login attempt failed: {:?}", e);

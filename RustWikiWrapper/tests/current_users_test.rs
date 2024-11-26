@@ -1,8 +1,5 @@
 use dotenv::dotenv;
-use rust_wiki_wrapper::{
-    api::action::get_current_user::get_current_user, api::action::login::login,
-    api::MediaWikiClient,
-};
+use rust_wiki_wrapper::api::MediaWikiClient;
 use std::env;
 
 async fn setup_authenticated_client() -> MediaWikiClient {
@@ -13,7 +10,7 @@ async fn setup_authenticated_client() -> MediaWikiClient {
 
     let client = MediaWikiClient::new("https://en.wikipedia.org");
 
-    login(&client, &username, &password)
+    client.login(&username, &password)
         .await
         .expect("Failed to login");
 
@@ -23,7 +20,7 @@ async fn setup_authenticated_client() -> MediaWikiClient {
 #[tokio::test]
 async fn test_get_authenticated_user_info() {
     let client = setup_authenticated_client().await;
-    let result = get_current_user(&client).await;
+    let result = client.get_current_user().await;
 
     match result {
         Ok(user_info) => {
@@ -72,7 +69,7 @@ async fn test_get_authenticated_user_info() {
 #[tokio::test]
 async fn test_user_rights() {
     let client = setup_authenticated_client().await;
-    let result = get_current_user(&client).await;
+    let result = client.get_current_user().await;
 
     match result {
         Ok(user_info) => {
@@ -101,7 +98,7 @@ async fn test_user_rights() {
 #[tokio::test]
 async fn test_user_groups() {
     let client = setup_authenticated_client().await;
-    let result = get_current_user(&client).await;
+    let result = client.get_current_user().await;
 
     match result {
         Ok(user_info) => {
@@ -132,7 +129,7 @@ async fn test_rate_limit_handling() {
     let client = setup_authenticated_client().await;
 
     for i in 1..=5 {
-        let result = get_current_user(&client).await;
+        let result = client.get_current_user().await;
 
         match result {
             Ok(_) => println!("Request {} succeeded", i),
@@ -152,7 +149,7 @@ async fn test_rate_limit_handling() {
 #[tokio::test]
 async fn test_comprehensive_user_info() {
     let client = setup_authenticated_client().await;
-    let result = get_current_user(&client).await;
+    let result = client.get_current_user().await;
 
     match result {
         Ok(user_info) => {

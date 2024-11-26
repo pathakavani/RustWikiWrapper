@@ -1,5 +1,4 @@
 use dotenv::dotenv;
-use rust_wiki_wrapper::api::action::login;
 use rust_wiki_wrapper::api::MediaWikiClient;
 use std::env;
 use std::error::Error;
@@ -14,7 +13,7 @@ async fn send_wiki_email(target: &str, subject: &str, message: &str) -> Result<(
 
     // first login using the login function
     println!("Logging in as {}...", username);
-    let login_result = login::login(&client, &username, &password).await?;
+    let login_result = client.login(&username, &password).await?;
 
     match login_result.clientlogin.status.as_str() {
         "PASS" => {

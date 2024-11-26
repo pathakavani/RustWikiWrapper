@@ -1,4 +1,3 @@
-use rust_wiki_wrapper::api::rest::get_page_summary::get_page_summary;
 use rust_wiki_wrapper::api::MediaWikiClient;
 
 use serde_json;
@@ -7,7 +6,7 @@ use serde_json;
 async fn main() {
     let client = MediaWikiClient::new("https://en.wikipedia.org/api/rest_v1");
 
-    match get_page_summary(&client, "Rust (programming language)").await {
+    match client.get_page_summary("Rust (programming language)").await {
         Ok(summary) => {
             // Pretty print the SummaryResponse as JSON
             match serde_json::to_string_pretty(&summary) {

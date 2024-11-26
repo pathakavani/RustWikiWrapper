@@ -1,5 +1,5 @@
 use dotenv::dotenv;
-use rust_wiki_wrapper::{api::action::login::login, api::MediaWikiClient};
+use rust_wiki_wrapper:: api::MediaWikiClient;
 use std::env;
 
 // Helper function to get test credentials from environment variables
@@ -17,7 +17,7 @@ async fn test_successful_login() {
     let (username, password) = get_test_credentials();
     let client = MediaWikiClient::new("https://test.wikipedia.org");
 
-    let result = login(&client, &username, &password).await;
+    let result = client.login(&username, &password).await;
 
     match result {
         Ok(response) => {
@@ -38,7 +38,7 @@ async fn test_successful_login() {
 async fn test_failed_login() {
     let client = MediaWikiClient::new("https://test.wikipedia.org");
 
-    let result = login(&client, "invalid_user", "invalid_password").await;
+    let result = client.login("invalid_user", "invalid_password").await;
 
     assert!(
         result.is_err(),
@@ -58,14 +58,14 @@ async fn test_empty_credentials() {
     let client = MediaWikiClient::new("https://test.wikipedia.org");
 
     // Test empty username
-    let empty_user_result = login(&client, "", "some_password").await;
+    let empty_user_result = client.login("", "some_password").await;
     assert!(
         empty_user_result.is_err(),
         "Should fail with empty username"
     );
 
     // Test empty password
-    let empty_pass_result = login(&client, "some_user", "").await;
+    let empty_pass_result = client.login("some_user", "").await;
     assert!(
         empty_pass_result.is_err(),
         "Should fail with empty password"
@@ -79,7 +79,7 @@ async fn test_rate_limit_handling() {
 
     // Attempt multiple logins in quick succession to trigger rate limiting
     for i in 0..5 {
-        let result = login(&client, &username, &password).await;
+        let result = client.login(&username, &password).await;
         match result {
             Ok(_) => println!("Login attempt {} succeeded", i + 1),
             Err(e) => {

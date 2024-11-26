@@ -1,5 +1,4 @@
 use dotenv::dotenv;
-use rust_wiki_wrapper::api::action::login;
 use rust_wiki_wrapper::api::MediaWikiClient;
 use std::env;
 use std::error::Error;
@@ -17,7 +16,7 @@ async fn login_and_edit_page(
     let client = MediaWikiClient::new("https://test.wikipedia.org");
 
     println!("Logging in as {}...", username);
-    let login_result = login::login(&client, &username, &password).await?;
+    let login_result = client.login(&username, &password).await?;
 
     match login_result.clientlogin.status.as_str() {
         "PASS" => println!(
@@ -56,7 +55,7 @@ async fn login_and_edit_page(
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    let page_title = "Testpage4";
+    let page_title = "Testpage5";
     let page_content = r#"= Welcome to Testpage4 =
 This is a demonstration page created using the RustWikiWrapper API.
 
@@ -66,8 +65,8 @@ This page was automatically created to test the Wikipedia API integration.
 == Features ==
 === Current Implementation ===
 * Page creation
-* Content management
-* Watchlist integration
+* Content managements has been added
+* Watchlist integration also has been tested
 
 == Example Lists ==
 === Ordered List ===
@@ -89,7 +88,7 @@ This page was automatically created to test the Wikipedia API integration.
     let should_watch = true;
 
     match login_and_edit_page(page_title, page_content, should_watch).await {
-        Ok(_) => println!("Page 'Testpage4' has been created successfully"),
+        Ok(_) => println!("Page 'Testpage5' has been created successfully"),
         Err(e) => println!("Error creating page: {}", e),
     }
 

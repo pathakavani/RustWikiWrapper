@@ -1,7 +1,5 @@
 use dotenv::dotenv;
-use rust_wiki_wrapper::{
-    api::action::get_page_content::get_page_content, api::MediaWikiClient as Client,
-};
+use rust_wiki_wrapper::api::MediaWikiClient as Client;
 use tokio;
 
 async fn setup_client() -> Client {
@@ -13,7 +11,7 @@ async fn setup_client() -> Client {
 #[tokio::test]
 async fn test_get_existing_page() {
     let client = setup_client().await;
-    let result = get_page_content(&client, "Main Page").await;
+    let result = client.get_page_content("Main Page").await;
 
     match result {
         Ok(page) => {
@@ -38,7 +36,7 @@ async fn test_get_existing_page() {
 #[tokio::test]
 async fn test_get_nonexistent_page() {
     let client = setup_client().await;
-    let result = get_page_content(&client, "ThisPageDefinitelyDoesNotExist12345678990").await;
+    let result = client.get_page_content("ThisPageDefinitelyDoesNotExist12345678990").await;
 
     assert!(result.is_err(), "Should fail for non-existent page");
     if let Err(e) = result {
@@ -54,7 +52,7 @@ async fn test_get_nonexistent_page() {
 async fn test_get_special_character_page() {
     let client = setup_client().await;
     // Use a known page with special characters
-    let result = get_page_content(&client, "café").await;
+    let result = client.get_page_content("café").await;
 
     match result {
         Ok(page) => {
@@ -72,7 +70,7 @@ async fn test_get_special_character_page() {
 async fn test_get_template_page() {
     let client = setup_client().await;
     // Use a known template that exists
-    let result = get_page_content(&client, "Template:Cite web").await;
+    let result = client.get_page_content("Template:Cite web").await;
 
     match result {
         Ok(page) => {
@@ -92,7 +90,7 @@ async fn test_get_template_page() {
 async fn test_get_large_page() {
     let client = setup_client().await;
     // Use "United States" article which is known to be large
-    let result = get_page_content(&client, "United States").await;
+    let result = client.get_page_content("United States").await;
 
     match result {
         Ok(page) => {
@@ -114,7 +112,7 @@ async fn test_get_large_page() {
 async fn test_get_redirected_page() {
     let client = setup_client().await;
     // Use a known redirect
-    let result = get_page_content(&client, "USA").await;
+    let result = client.get_page_content("USA").await;
 
     match result {
         Ok(page) => {
@@ -135,7 +133,7 @@ async fn test_get_redirected_page() {
 #[tokio::test]
 async fn test_revision_info() {
     let client = setup_client().await;
-    let result = get_page_content(&client, "Main Page").await;
+    let result = client.get_page_content("Main Page").await;
 
     match result {
         Ok(page) => {
@@ -157,7 +155,7 @@ async fn test_rate_limit_handling() {
     let client = setup_client().await;
 
     for i in 1..=5 {
-        let result = get_page_content(&client, "Main Page").await;
+        let result = client.get_page_content( "Main Page").await;
 
         match result {
             Ok(_) => println!("Request {} succeeded", i),
@@ -178,7 +176,7 @@ async fn test_rate_limit_handling() {
 // Helper function to test specific page properties
 async fn verify_page_properties(page_title: &str) {
     let client = setup_client().await;
-    let result = get_page_content(&client, page_title).await;
+    let result = client.get_page_content(page_title).await;
 
     if let Ok(page) = result {
         assert!(!page.title.is_empty(), "Title should not be empty");

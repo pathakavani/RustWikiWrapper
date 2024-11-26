@@ -1,5 +1,3 @@
-use rust_wiki_wrapper::api::action::get_current_user::get_current_user;
-use rust_wiki_wrapper::api::action::login::login;  // Add this
 use rust_wiki_wrapper::MediaWikiClient;
 use std::error::Error;
 use dotenv::dotenv;
@@ -20,12 +18,12 @@ async fn test_get_current_user() -> Result<(), Box<dyn Error>> {
     // initialize the client
     let client = MediaWikiClient::new("https://en.wikipedia.org");
 
-    match login(&client, &username, &password).await {
+    match client.login(&username, &password).await {
         Ok(login_response) => {
             println!("Login successful: {:#?}", login_response);
             
             // now get current user info using the same client
-            match get_current_user(&client).await {
+            match client.get_current_user().await {
                 Ok(user_info) => {
                     println!("\nUser Information:");
                     if let Some(name) = &user_info.query.userinfo.name {

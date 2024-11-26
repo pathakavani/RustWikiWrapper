@@ -2,7 +2,6 @@ use std::error::Error;
 use dotenv::dotenv;
 use std::env;
 use rust_wiki_wrapper::api::MediaWikiClient;
-use rust_wiki_wrapper::api::action::{login, upload_file};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
@@ -21,7 +20,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     // Step 2: Log in using the login API
     println!("Logging in as {}...", username);
-    let login_result = login::login(&client, &username, &password).await?;
+    let login_result = client.login(&username, &password).await?;
 
     // Verify login success
     match login_result.clientlogin.status.as_str() {
@@ -39,8 +38,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     // Step 3: Upload a file
     println!("Uploading file: {}", file_name);
-    let upload_result = upload_file::upload_file(
-        &client,
+    let upload_result = client.upload_file(
         &file_name,
         &file_to_upload,
         Some("Uploaded using RustWikiWrapper"),

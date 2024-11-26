@@ -1,5 +1,4 @@
 use rust_wiki_wrapper::MediaWikiClient;
-use rust_wiki_wrapper::api::action::login::login;
 use std::error::Error;
 use dotenv::dotenv;
 use std::env;
@@ -24,7 +23,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     println!("Attempting to login to {}...", wiki_url);
     println!("Username: {}", username);
 
-    match login(&client, &username, &password).await {
+    match client.login(&username, &password).await {
         Ok(response) => {
             println!("\nLogin Result:");
             println!("Status: {}", response.clientlogin.status);

@@ -1,4 +1,3 @@
-use rust_wiki_wrapper::api::action::get_page_content::get_page_content;
 use rust_wiki_wrapper::api::MediaWikiClient;
 use std::error::Error;
 
@@ -6,7 +5,7 @@ async fn test_get_page_content(client: &MediaWikiClient, title: &str) -> Result<
     println!("=== Testing Action API: Get Page Content ===");
     println!("Fetching content for page: {}", title);
 
-    match get_page_content(client, title).await {
+    match client.get_page_content(title).await {
         Ok(content) => {
             println!("\nPage Details:");
             println!("Title: {}", content.title);

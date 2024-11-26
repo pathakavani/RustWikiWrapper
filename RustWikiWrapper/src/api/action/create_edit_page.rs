@@ -44,12 +44,18 @@ impl MediaWikiClient {
         // send edit request
         let edit_response = self
             .post("w/api.php?format=json", &edit_params)
-            .await?
+            .await?;
+            
+        println!("Raw Response: {:?}", edit_response);    
+            
+        let parsed_response= edit_response
             .json::<CreateEditPageResponse>()
             .await?;
 
+        
+
         // return the response
-        Ok(edit_response)
+        Ok(parsed_response)
     }
 }
 

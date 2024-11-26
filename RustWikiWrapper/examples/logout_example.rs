@@ -1,6 +1,4 @@
 use rust_wiki_wrapper::MediaWikiClient;
-use rust_wiki_wrapper::api::action::login::login;
-use rust_wiki_wrapper::api::action::logout::logout;
 use std::error::Error;
 use dotenv::dotenv;
 use std::env;
@@ -25,7 +23,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     println!("\nStep 1: Logging in...");
     println!("Username: {}", username);
     
-    match login(&client, &username, &password).await {
+    match client.login(&username, &password).await {
         Ok(login_response) => {
             println!("Login successful!");
             if let Some(username) = login_response.clientlogin.username {
@@ -38,7 +36,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
             // Now attempt to logout
             println!("\nStep 2: Logging out...");
-            match logout(&client).await {
+            match client.logout().await {
                 Ok(_) => {
                     println!("Logout successful!");
                     

@@ -1,4 +1,3 @@
-use rust_wiki_wrapper::api::action::login::login;
 use rust_wiki_wrapper::api::MediaWikiClient;
 use std::env;
 use std::error::Error;
@@ -13,7 +12,7 @@ async fn test_login(client: &MediaWikiClient) -> Result<(), Box<dyn Error>> {
     println!("Attempting to login with username: {}", username);
     
     // Using the login function with correct number of parameters
-    match login(client, &username, &password).await {
+    match client.login( &username, &password).await {
         Ok(response) => {
             println!("\nLogin Response: {:?}", response );
             println!("Status: {}", response.clientlogin.status);
